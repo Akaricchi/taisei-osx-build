@@ -1,0 +1,15 @@
+[submodule "osxcross"]
+	path = osxcross
+	url = https://github.com/tpoechtrager/osxcross
+[submodule "libs/libogg/libogg"]
+	path = libs/libogg/libogg
+	url = https://git.xiph.org/ogg.git
+[submodule "libs/sdl2/SDL-mirror"]
+	path = libs/sdl2/SDL-mirror
+	url = https://github.com/spurious/SDL-mirror
+[submodule "libs/zlib/zlib"]
+	path = libs/zlib/zlib
+	url = https://github.com/madler/zlib
+[submodule "libs/libpng/libpng"]
+	path = libs/libpng/libpng
+	url = https://github.com/glennrp/libpng

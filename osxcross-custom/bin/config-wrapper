@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pushd "$(dirname "$0")" >/dev/null
+CWPATH="$(pwd)/config-wrapper-path"
+pushd ../.. >/dev/null || exit 1
+source common.sh || exit 1
+popd >/dev/null
+
+if [ -z "${__CONFIGWRAPPER_PATH_UNWRAPPED}" ]; then
+    export __CONFIGWRAPPER_PATH_UNWRAPPED="$PATH"
+    export PATH="$CWPATH:$PATH"
+fi
+
+PROGPATH="$ROOT/local/bin/${0##*/}"
+popd >/dev/null
+exec "$PROGPATH" "$@"
