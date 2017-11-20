@@ -9,7 +9,7 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv *.tar.* build
 fi
 
-PKG=$(get-pkg https://www.libsdl.org/projects/SDL_mixer/release/ SDL2_mixer-2.0.1 tar.gz)
+PKG=$(get-pkg https://www.libsdl.org/projects/SDL_mixer/release/ SDL2_mixer-2.0.2 tar.gz)
 
 CFLAGS+="-I$ROOT/local/include "
 CFLAGS+="-I$ROOT/local/include/vorbis "
