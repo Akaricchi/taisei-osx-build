@@ -1,0 +1,34 @@
+#!/bin/bash
+
+pushd "$(dirname "$0")"/../.. >/dev/null || exit 1
+source common.sh || exit 1
+popd >/dev/null
+
+function gen_cross_file {
+cat <<EOF
+[binaries]
+c = '$(xwhich clang)'
+cpp = '$(xwhich clang++)'
+ar = '$(xwhich ar)'
+ranlib = '$(xwhich ranlib)'
+ld = '$(xwhich ld)'
+strip = '$(xwhich strip)'
+pkgconfig = '$(xwhich pkg-config)'
+
+[properties]
+needs_exe_wrapper = true
+
+[host_machine]
+system = 'darwin'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'
+EOF
+}
+
+crossfile="$CUSTOM/meson_cross_file.auto"
+gen_cross_file > "${crossfile}"
+cat "${crossfile}"
+prefix="$ROOT/local"
+
+PATH="${prefix}/bin:$PATH" meson --cross-file "${crossfile}" "$@"

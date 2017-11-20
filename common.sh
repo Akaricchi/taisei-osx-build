@@ -6,36 +6,46 @@ ROOT="$PWD/osxcross/target"
 CUSTOM="$PWD/osxcross-custom"
 MAKE="make -j$(nproc)"
 
-export PATH="$ROOT/local/bin:$PATH"
-export PATH="$ROOT/bin:$PATH"
-export PATH="$CUSTOM/bin:$PATH"
+if [ -z "${__TAISEIOSXCROSS_COMMON_INCLUDED}" ]; then
+    export __TAISEIOSXCROSS_COMMON_INCLUDED="yes"
 
-export CC=$HOST-clang
-export CXX=$HOST-clang++
-export AR=$HOST-ar
-export RANLIB=$HOST-ranlib
-export LD=$HOST-ld
+    export PATH="$ROOT/local/bin:$PATH"
+    export PATH="$ROOT/bin:$PATH"
+    export PATH="$CUSTOM/bin:$PATH"
 
-export MACOSX_DEPLOYMENT_TARGET=10.7
-export OSXCROSS_PKG_CONFIG_NO_MP_INC=1
-unset OSXCROSS_PKG_CONFIG_USE_NATIVE_VARIABLES
-unset OSXCROSS_PKG_CONFIG_PATH
+    export MACOSX_DEPLOYMENT_TARGET=10.7
+    export OSXCROSS_PKG_CONFIG_NO_MP_INC=1
+    unset OSXCROSS_PKG_CONFIG_USE_NATIVE_VARIABLES
+    unset OSXCROSS_PKG_CONFIG_PATH
 
-for p in "$ROOT"/{local,.}/{lib,share}/pkgconfig; do
-    if [ -z "$OSXCROSS_PKG_CONFIG_PATH" ]; then
-        OSXCROSS_PKG_CONFIG_PATH="$p"
-    else
-        OSXCROSS_PKG_CONFIG_PATH="$OSXCROSS_PKG_CONFIG_PATH:$p"
-    fi
-done
+    for p in "$ROOT"/{local,.}/{lib,share}/pkgconfig; do
+        if [ -z "$OSXCROSS_PKG_CONFIG_PATH" ]; then
+            OSXCROSS_PKG_CONFIG_PATH="$p"
+        else
+            OSXCROSS_PKG_CONFIG_PATH="$OSXCROSS_PKG_CONFIG_PATH:$p"
+        fi
+    done
 
-export OSXCROSS_PKG_CONFIG_PATH
+    export OSXCROSS_PKG_CONFIG_PATH
+fi
+
+function set-cross-env {
+    export CC=$HOST-clang
+    export CXX=$HOST-clang++
+    export AR=$HOST-ar
+    export RANLIB=$HOST-ranlib
+    export LD=$HOST-ld
+}
 
 function xtool
 {
     local tool="$HOST-$1"
     shift
     $tool "$@"
+}
+
+function xwhich {
+    which ${HOST}-$1
 }
 
 function get-src

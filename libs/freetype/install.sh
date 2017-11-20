@@ -17,6 +17,8 @@ CPPFLAGS+="$CFLAGS"
 export CFLAGS
 export CPPFLAGS
 
+set-cross-env
+
 mkdir -p build && \
 cd build && \
 ../$PKG/configure \

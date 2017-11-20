@@ -11,12 +11,6 @@ fi
 
 PKG=$(get-pkg https://ftp.gnu.org/gnu/binutils/ binutils-2.29 tar.xz)
 
-export CC=gcc
-export CXX=g++
-export AR=ar
-export RANLIB=ranlib
-export LD=ld
-
 cd $PKG && \
 ./configure \
     --target="$HOST" \
