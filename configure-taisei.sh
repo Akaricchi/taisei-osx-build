@@ -23,15 +23,32 @@ TOOLROOT="$PWD"
 mkdir -p "$BUILDDIR" || exit $?
 cd "$BUILDDIR" || exit $?
 
-cat << EOF > reconfigure.sh
+cat << EOF > xtool
 #!/bin/bash
-exec "$(readlink -f $0)" "$SRCDIR" "$BUILDDIR" "\$@"
+exec "$TOOLROOT/xtool.sh" "\$@"
 EOF
 
-chmod +x reconfigure.sh || exit $?
-xtool cmake "$SRCDIR" -GNinja \
-    -DCMAKE_INSTALL_PREFIX:FILEPATH="$BUILDDIR/install" \
-    -DOSX_LIB_PATH="$ROOT/local/lib" \
-    -DOSX_TOOL_PATH="$ROOT/bin:$ROOT/local/bin" \
-    -DOSX_TOOL_PREFIX="$HOST-" \
+cat << EOF > htool
+#!/bin/bash
+exec "$TOOLROOT/htool.sh" "\$@"
+EOF
+
+cat << EOF > meson
+#!/bin/bash
+exec "$TOOLROOT/xtool.sh" meson "\$@"
+EOF
+
+cat << EOF > ninja
+#!/bin/bash
+exec "$TOOLROOT/htool.sh" ninja "\$@"
+EOF
+
+chmod +x xtool htool meson ninja || exit $?
+
+xtool meson "$SRCDIR" \
+    --backend ninja \
+    --prefix="$BUILDDIR/install" \
+    -Dmacos_lib_path="$ROOT/local/lib" \
+    -Dmacos_tool_path="$ROOT/bin:$ROOT/local/bin" \
+    -Dmacos_tool_prefix="$HOST-" \
 "$@"
