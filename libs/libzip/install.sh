@@ -9,7 +9,7 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv *.tar.* build
 fi
 
-PKG=$(get-pkg https://nih.at/libzip/libzip/ libzip-1.3.0 tar.xz)
+PKG=$(get-pkg https://libzip.org/download/ libzip-1.3.2 tar.xz)
 
 mkdir -p build && \
 cd build && \
