@@ -6,16 +6,16 @@ source common.sh || exit 1
 popd >/dev/null || exit 1
 
 if [[ "$1" = "-c" ]]; then
-    rm -rfv build
+    rm -rfv *.tar.* build
 fi
 
-PKG=$(get-pkg https://download.savannah.gnu.org/releases/freetype/ freetype-2.8 tar.gz)
+PKG=$(get-pkg http://www.mega-nerd.com/SRC/ libsamplerate-0.1.9 tar.gz)
 
 set-cross-env
 
 mkdir -p build && \
 cd build && \
 ../$PKG/configure "${CONFIGURE_COMMON[@]}" \
-    --disable-biarch-config \
-    --with-harfbuzz=no \
+    --disable-sndfile \
+    --disable-fftw \
 && $MAKE install

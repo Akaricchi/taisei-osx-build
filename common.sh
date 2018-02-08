@@ -6,6 +6,19 @@ ROOT="$PWD/osxcross/target"
 CUSTOM="$PWD/osxcross-custom"
 MAKE="make -j$(nproc)"
 
+CONFIGURE_COMMON=(
+    --disable-option-checking
+    --host="$HOST"
+    --prefix="$ROOT/local"
+    --libdir="$ROOT/local/lib"
+    --disable-shared
+    --enable-static
+    --disable-docs
+    --disable-examples
+    --disable-sdltest
+    --disable-silent-rules
+)
+
 if [ -z "${__TAISEIOSXCROSS_COMMON_INCLUDED}" ]; then
     export __TAISEIOSXCROSS_COMMON_INCLUDED="yes"
 
@@ -30,15 +43,25 @@ if [ -z "${__TAISEIOSXCROSS_COMMON_INCLUDED}" ]; then
 fi
 
 function set-cross-env {
+    export PREFIX="$ROOT/local"
     export CC=$HOST-clang
     export CXX=$HOST-clang++
     export AR=$HOST-ar
     export RANLIB=$HOST-ranlib
     export LD=$HOST-ld
+
+    local optflags="-O3 -mtune=intel -flto"
+    local cppflags="-D_FORTIFY_SOURCE=2 -I${PREFIX}/include"
+    local cflags="-fpic -fstack-protector-strong"
+    local ldflags="$optflags -fpic -L${PREFIX}/lib"
+
+    export CFLAGS="$CFLAGS $cflags $cppflags $optflags"
+    export CPPFLAGS="$CFLAGS $cppflags"
+    export CXXFLAGS="$CXXFLAGS $cflags $cppflags $optflags"
+    export LDFLAGS="$LDFLAGS $ldflags"
 }
 
-function xtool
-{
+function xtool {
     local tool="$HOST-$1"
     shift
     $tool "$@"
@@ -48,8 +71,7 @@ function xwhich {
     which ${HOST}-$1
 }
 
-function get-src
-{
+function get-src {
     name="$1"
     url="$2"
     ext="$3"
@@ -60,8 +82,7 @@ function get-src
     fi
 }
 
-function get-pkg
-{
+function get-pkg {
     url_prefix="$1"
     name="$2"
     ext="$3"
@@ -71,7 +92,6 @@ function get-pkg
     printf "%s" "$name"
 }
 
-function log
-{
+function log {
     >&2 printf "%s: %s\n" "$0" "$1"
 }

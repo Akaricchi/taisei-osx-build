@@ -9,17 +9,20 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv build
 fi
 
+set-cross-env
+
 mkdir -p build && \
 cd build && \
-xtool cmake ../SDL-mirror -GNinja \
-    -DVIDEO_X11=OFF \
-    -DVIDEO_VULKAN=OFF \
-    -DSDL_RENDER=OFF \
-    -DSDL_SHARED=ON \
-    -DSDL_STATIC=ON \
-&& ninja && ninja install && ninja || exit $?
+../SDL-mirror/configure "${CONFIGURE_COMMON[@]}" \
+    --enable-assertions=release \
+    --disable-render \
+    --disable-haptic \
+    --disable-power \
+    --disable-libsamplerate-shared \
+    --disable-video-x11 \
+    --disable-video-opengles1 \
+    --disable-video-vulkan \
+    --disable-dbus \
+&& $MAKE install
 
-# sdl's install rule seems broken here, doesn't install the actual dylib for some reason
-find . -maxdepth 1 -type f -name '*.dylib' | while read f; do
-    cp -v "$f" "$ROOT/local/lib/" || exit 1
-done
+echo 'Requires.private: samplerate' >> "$ROOT/local/lib/pkgconfig/sdl2.pc"

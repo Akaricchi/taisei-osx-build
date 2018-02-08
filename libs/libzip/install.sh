@@ -6,7 +6,7 @@ source common.sh || exit 1
 popd >/dev/null || exit 1
 
 if [[ "$1" = "-c" ]]; then
-    rm -rfv *.tar.* build
+    rm -rfv build
 fi
 
 PKG=$(get-pkg https://libzip.org/download/ libzip-1.3.2 tar.xz)
@@ -15,10 +15,5 @@ set-cross-env
 
 mkdir -p build && \
 cd build && \
-../$PKG/configure \
-    --host="$HOST" \
-    --prefix="$ROOT/local" \
-    --disable-shared \
-    --enable-static \
-    --disable-silent-rules \
+../$PKG/configure  "${CONFIGURE_COMMON[@]}" \
 && $MAKE install

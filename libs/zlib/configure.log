@@ -1,0 +1,7 @@
+--------------------
+zlib-1.2.11/configure --help
+Thu Feb  8 14:13:44 EET 2018
+usage:
+  configure [--const] [--zprefix] [--prefix=PREFIX]  [--eprefix=EXPREFIX]
+    [--static] [--64] [--libdir=LIBDIR] [--sharedlibdir=LIBDIR]
+    [--includedir=INCLUDEDIR] [--archs="-arch i386 -arch x86_64"]

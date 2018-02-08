@@ -7,15 +7,19 @@ popd >/dev/null || exit 1
 
 TARGETS=(
     zlib
+    bzip2
     binutils
     libpng
+    libjpeg-turbo
     libogg
     libvorbis
+    libsamplerate
     freetype
     libzip
     sdl2
     sdl2_mixer
     sdl2_ttf
+    sdl2_image
 )
 
 for target in ${TARGETS[*]}; do

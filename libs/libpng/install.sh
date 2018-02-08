@@ -9,10 +9,12 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv build
 fi
 
+PKG=$(get-pkg https://download.sourceforge.net/libpng/ libpng-1.6.34 tar.xz)
+
+set-cross-env
+
 mkdir -p build && \
 cd build && \
-xtool cmake ../libpng -GNinja \
-    -DPNG_SHARED=ON \
-    -DPNG_TESTS=OFF \
-    -DPNGARG=ON \
-&& ninja install
+../$PKG/configure "${CONFIGURE_COMMON[@]}" \
+    --enable-hardware-optimizations \
+&& $MAKE install

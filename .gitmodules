@@ -13,3 +13,6 @@
 [submodule "libs/libpng/libpng"]
 	path = libs/libpng/libpng
 	url = https://github.com/glennrp/libpng
+[submodule "libs/bzip2/bzip2"]
+	path = libs/bzip2/bzip2
+	url = https://github.com/taisei-project/bzip2

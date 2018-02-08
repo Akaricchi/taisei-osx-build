@@ -4,6 +4,8 @@ pushd "$(dirname "$0")"/../.. >/dev/null || exit 1
 source common.sh || exit 1
 popd >/dev/null
 
+xwhich pkg-config
+
 function gen_cross_file {
 cat <<EOF
 [binaries]
@@ -31,4 +33,9 @@ gen_cross_file > "${crossfile}"
 cat "${crossfile}"
 prefix="$ROOT/local"
 
-PATH="${prefix}/bin:$PATH" meson --cross-file "${crossfile}" "$@"
+PATH="${prefix}/bin:$PATH" meson \
+    --cross-file "${crossfile}" \
+    --prefix="${prefix}" \
+    --libdir=lib \
+    --default-library=static \
+"$@"

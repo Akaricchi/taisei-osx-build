@@ -9,7 +9,7 @@ prefix="$ROOT/local"
 
 PATH="${prefix}/bin:$PATH" cmake \
     -DCMAKE_INSTALL_PREFIX:PATH="${prefix}" \
-    -DCMAKE_INSTALL_LIBDIR:PATH="${prefix}"/lib \
+    -DCMAKE_INSTALL_FULL_LIBDIR:PATH="${prefix}"/lib \
     -DINCLUDE_INSTALL_DIR:PATH="${prefix}"/include \
     -DLIB_INSTALL_DIR:PATH="${prefix}"/lib \
     -DSYSCONF_INSTALL_DIR:PATH="${prefix}"/etc \
