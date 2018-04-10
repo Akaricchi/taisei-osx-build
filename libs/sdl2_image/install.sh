@@ -9,7 +9,7 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv build
 fi
 
-PKG=$(get-pkg https://www.libsdl.org/projects/SDL_image/release/ SDL2_image-2.0.2 tar.gz)
+PKG=$(get-pkg https://www.libsdl.org/projects/SDL_image/release/ SDL2_image-2.0.3 tar.gz)
 
 set-cross-env
 
