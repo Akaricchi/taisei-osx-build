@@ -9,7 +9,7 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv build
 fi
 
-PKG=$(get-pkg https://download.savannah.gnu.org/releases/freetype/ freetype-2.8 tar.gz)
+PKG=$(get-pkg https://download.savannah.gnu.org/releases/freetype/ freetype-2.9 tar.gz)
 
 set-cross-env
 
