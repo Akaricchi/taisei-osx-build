@@ -10,4 +10,4 @@ if [ -z "${__CONFIGWRAPPER_PATH_UNWRAPPED}" ]; then
 fi
 
 export PATH="${__CONFIGWRAPPER_PATH_UNWRAPPED}"
-exec "$ROOT/osxcross-custom/bin/$HOST-pkg-config" "$@"
+exec "$CUSTOM/bin/$HOST-pkg-config" "$@"
