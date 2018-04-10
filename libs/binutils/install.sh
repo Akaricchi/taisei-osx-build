@@ -9,7 +9,7 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv binutils-*/
 fi
 
-PKG=$(get-pkg https://ftp.gnu.org/gnu/binutils/ binutils-2.29 tar.xz)
+PKG=$(get-pkg https://ftp.gnu.org/gnu/binutils/ binutils-2.30 tar.xz)
 
 cd $PKG && \
 ./configure \
