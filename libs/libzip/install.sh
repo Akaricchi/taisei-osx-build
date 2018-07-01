@@ -9,11 +9,11 @@ if [[ "$1" = "-c" ]]; then
     rm -rfv build
 fi
 
-PKG=$(get-pkg https://libzip.org/download/ libzip-1.3.2 tar.xz)
+PKG=$(get-pkg https://libzip.org/download/ libzip-1.5.1 tar.xz)
 
 set-cross-env
 
 mkdir -p build && \
 cd build && \
-../$PKG/configure  "${CONFIGURE_COMMON[@]}" \
+xtool cmake ../$PKG \
 && $MAKE install

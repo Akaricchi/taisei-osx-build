@@ -18,8 +18,8 @@ TARGETS=(
     libzip
     sdl2
     sdl2_mixer
-    sdl2_ttf
     sdl2_image
+    sdl2_ttf
 )
 
 for target in ${TARGETS[*]}; do

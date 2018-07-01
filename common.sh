@@ -50,7 +50,7 @@ function set-cross-env {
     export RANLIB=$HOST-ranlib
     export LD=$HOST-ld
 
-    local optflags="-O3 -mtune=intel -flto"
+    local optflags="-O3 -march=core2 -mtune=intel -flto"
     local cppflags="-D_FORTIFY_SOURCE=2 -I${PREFIX}/include"
     local cflags="-fpic -fstack-protector-strong"
     local ldflags="$optflags -fpic -L${PREFIX}/lib"

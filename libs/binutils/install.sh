@@ -15,5 +15,7 @@ cd $PKG && \
 ./configure \
     --target="$HOST" \
     --prefix="$ROOT/local" \
+    --libdir="$ROOT/local/lib" \
     --enable-lto \
+    --verbose \
 && $MAKE && $MAKE install
