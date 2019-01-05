@@ -11,6 +11,7 @@ TARGETS=(
     binutils
     libpng
     libjpeg-turbo
+    libwebp
     libogg
     libvorbis
     libsamplerate

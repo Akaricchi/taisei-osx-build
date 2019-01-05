@@ -16,3 +16,6 @@
 [submodule "libs/bzip2/bzip2"]
 	path = libs/bzip2/bzip2
 	url = https://github.com/taisei-project/bzip2
+[submodule "libs/libwebp/libwebp"]
+	path = libs/libwebp/libwebp
+	url = https://github.com/webmproject/libwebp/
