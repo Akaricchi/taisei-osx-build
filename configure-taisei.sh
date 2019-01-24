@@ -48,7 +48,4 @@ chmod +x xtool htool meson ninja || exit $?
 xtool meson "$SRCDIR" \
     --backend ninja \
     --prefix="$BUILDDIR/install" \
-    -Dmacos_lib_path="$ROOT/local/lib" \
-    -Dmacos_tool_path="$ROOT/bin:$ROOT/local/bin" \
-    -Dmacos_tool_prefix="$HOST-" \
 "$@"

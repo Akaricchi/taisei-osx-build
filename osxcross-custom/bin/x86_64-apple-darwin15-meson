@@ -6,6 +6,7 @@ popd >/dev/null
 
 function gen_cross_file {
 cat <<EOF
+
 [binaries]
 c = '$(xwhich clang)'
 cpp = '$(xwhich clang++)'
@@ -19,6 +20,9 @@ pkgconfig = '$(xwhich pkg-config)'
 needs_exe_wrapper = true
 c_args = ['-fstack-protector-strong', '-D_FORTIFY_SOURCE=2', '-I$ROOT/local/include', '-march=core2', '-mtune=intel']
 c_link_args = ['-march=core2', '-mtune=intel', '-L$ROOT/local/lib']
+macos_lib_path = ['$ROOT/local/lib']
+macos_tool_path = ['$ROOT/bin', '$ROOT/local/bin']
+macos_tool_prefix = ['$HOST-']
 
 [host_machine]
 system = 'darwin'
