@@ -4,12 +4,16 @@ pushd "$(dirname "$0")"/../.. >/dev/null || exit 1
 source common.sh || exit 1
 popd >/dev/null
 
+CF_C_ARGS="['-fstack-protector-strong', '-D_FORTIFY_SOURCE=2', '-I$ROOT/local/include', '-march=core2', '-mtune=intel']"
+CF_C_LINK_ARGS="['-march=core2', '-mtune=intel', '-L$ROOT/local/lib']"
+
 function gen_cross_file {
 cat <<EOF
 
 [binaries]
 c = '$(xwhich clang)'
 cpp = '$(xwhich clang++)'
+objc = '$(xwhich clang)'
 ar = '$(xwhich ar)'
 ranlib = '$(xwhich ranlib)'
 ld = '$(xwhich ld)'
@@ -18,8 +22,12 @@ pkgconfig = '$(xwhich pkg-config)'
 
 [properties]
 needs_exe_wrapper = true
-c_args = ['-fstack-protector-strong', '-D_FORTIFY_SOURCE=2', '-I$ROOT/local/include', '-march=core2', '-mtune=intel']
-c_link_args = ['-march=core2', '-mtune=intel', '-L$ROOT/local/lib']
+c_args = $CF_C_ARGS
+c_link_args = $CF_C_LINK_ARGS
+cpp_args = $CF_C_ARGS
+cpp_link_args = $CF_C_LINK_ARGS
+objc_args = $CF_C_ARGS
+objc_link_args = $CF_C_LINK_ARGS
 macos_lib_path = ['$ROOT/local/lib']
 macos_tool_path = ['$ROOT/bin', '$ROOT/local/bin']
 macos_tool_prefix = ['$HOST-']
