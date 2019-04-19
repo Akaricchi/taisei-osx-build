@@ -2,3 +2,5 @@ build/
 *.tar.*
 *.zip
 *.auto
+*.kate-swp
+*kdev4

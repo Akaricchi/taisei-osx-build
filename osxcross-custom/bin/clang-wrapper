@@ -1,0 +1,25 @@
+#!/bin/bash
+
+pushd "$(dirname "$0")"/../.. >/dev/null || exit 1
+source common.sh || exit 1
+popd >/dev/null
+
+args=()
+
+FAKEAPPLE=0
+
+for arg in "$@"; do
+    case "$arg" in
+        -v|--version)
+            FAKEAPPLE=1
+            ;;
+    esac
+    args+=("$arg")
+done
+
+if [ $FAKEAPPLE -eq 1 ]; then
+    # Fool Meson into using the right linker args...
+    echo -n 'Apple LLVM '
+fi
+
+exec "$ROOT/bin/${0##*/}" "${args[@]}"
